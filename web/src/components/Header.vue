@@ -1,33 +1,17 @@
 <template>
   <q-header elevated class="header" height-hint="96">
-
     <q-tabs align="left">
       <q-route-tab to="/page1" label="Commercial"/>
       <q-route-tab to="/page2" label="None-commercial"/>
       <q-route-tab to="/page3" label="About"/>
-      <div class="logo">
+      <div class="logo_container">
+        <div class="logo" onclick="alert(1)">
+        </div>
       </div>
       <div class="right">
-        <q-avatar
-          color="primary"
-          text-color="white"
-          icon="directions"
-        />
-        <q-avatar
-          color="primary"
-          text-color="white"
-          icon="directions"
-        />
-        <q-avatar
-          color="primary"
-          text-color="white"
-          icon="directions"
-        />
-        <q-avatar
-          color="primary"
-          text-color="white"
-          icon="directions"
-        />
+        <a href="">追波</a>
+        <a href="">站酷</a>
+        <a href="">站酷</a>
       </div>
     </q-tabs>
   </q-header>
@@ -45,12 +29,14 @@
 
 
 <style lang="sass">
+  $height: 80px
   .header
     background-color: #1D1D1D
-    height: 120px
+    height: $height
 
   .q-tab__content
-    height: 120px
+    z-index: 2
+    height: $height
     font-size: 18px
     line-height: 24px
     &:hover
@@ -60,16 +46,35 @@
     background-color: blue
 
   .right
-    background-color: red
+    z-index: 2
+    position: absolute
+    right: 20px
+
+  .right a
+    background-color: green
+    height: 40px
+    display: inline-block
+    margin-left: 10px
+
+  .logo_container
+    z-index: 1
+    width: 100vw
+    height: $height
+    position: absolute
+    text-align: center
+    pointer-events: none
 
   .logo
+    pointer-events: auto
     background-color: green
     width: 200px
-    height: 100%
-    margin: 0 auto
+    height: $height
+    display: inline-block
+    &:hover
+      background-color: red
 
   .q-avatar
-    /*margin: 0 10px*/
+    margin: 0 10px
 </style>
 
 

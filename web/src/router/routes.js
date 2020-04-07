@@ -4,7 +4,10 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', redirect: 'commercial' },
+      { path: '/commercial', component: () => import('pages/List.vue') },
+      { path: '/none-commercial', component: () => import('pages/List.vue') },
+      { path: '/about', component: () => import('pages/About.vue') }
     ]
   }
 ]
