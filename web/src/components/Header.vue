@@ -3,7 +3,7 @@
     <q-tabs align="left">
       <q-route-tab to="/page1" label="Commercial"/>
       <q-route-tab to="/page2" label="None-commercial"/>
-      <q-route-tab to="/page3" label="About"/>
+      <q-route-tab to="/about" label="About"/>
       <div class="logo_container">
         <div class="logo" onclick="alert(1)">
         </div>
