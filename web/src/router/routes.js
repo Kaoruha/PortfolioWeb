@@ -7,7 +7,8 @@ const routes = [
       { path: '', redirect: 'commercial' },
       { path: '/commercial', component: () => import('pages/List.vue') },
       { path: '/none-commercial', component: () => import('pages/List.vue') },
-      { path: '/about', component: () => import('pages/About.vue') }
+      { path: '/about', component: () => import('pages/About.vue') },
+      { path: '/login', component: () => import('pages/Login.vue') }
     ]
   }
 ]

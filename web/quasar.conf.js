@@ -85,7 +85,16 @@ module.exports = function (ctx) {
     devServer: {
       https: false,
       port: 8080,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
+      proxy:{
+        '/local_api':{
+          target:'http://0.0.0.0:5000/api/',
+          changeOrigin:true,
+          pathRewrite:{
+            '^/local_api':''
+          }
+        }
+      }
     },
 
     // animations: 'all', // --- includes all animations
