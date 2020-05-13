@@ -57,6 +57,7 @@ module.exports = {
     'key-spacing':0,
     'comma-dangle':0,
     'no-multiple-empty-lines':0,
+    'object-curly-spacing':'off',
 
 
     // allow debugger during development only

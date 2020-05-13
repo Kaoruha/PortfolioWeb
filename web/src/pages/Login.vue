@@ -16,6 +16,7 @@
     </q-input>
 
     <q-btn unelevated rounded color="primary" label="Login" @click="login"/>
+    <q-btn unelevated rounded color="green" label="TEST" @click="test"/>
   </div>
 </template>
 
@@ -33,18 +34,34 @@
     },
     methods: {
       login() {
-        var params = {
+        const params = {
           account: this.user,
           secret: this.pwd
         }
-        var url = 'local_api/user/login';
+        const store = this.$store
+        const url = 'local_api/user/login'
         this.$axios.post(url, params)
           .then(function (response) {
-            console.log(response.data);
+            const r = response.data
+            switch (r.code) {
+              case 200:
+                store.commit('authorization/updateToken', r.data)
+                break
+              case 600:
+                console.log('登陆失败')
+                break
+              case 602:
+                console.log('登陆失败')
+                break
+            }
           })
           .catch(function (error) {
-            console.log(error.data)
-          });
+            console.log(error)
+          })
+      },
+      test() {
+        const t = localStorage.getItem('Authorization')
+        console.log(t)
       }
     }
   }

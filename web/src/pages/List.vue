@@ -56,47 +56,7 @@
             title:'fuck me8',
             caption:'',
             img:''
-          },
-          {
-            title:'fuck me1',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me2',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me3',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me4',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me5',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me6',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me7',
-            caption:'',
-            img:''
-          },
-          {
-            title:'fuck me8',
-            caption:'',
-            img:''
-          },
+          }
         ]
       }
     },
