@@ -64,7 +64,7 @@
 </script>
 
 
-<style lang="sass">
+<style lang="sass" scoped>
   .list
     margin: 60px auto 0
     background-color: green

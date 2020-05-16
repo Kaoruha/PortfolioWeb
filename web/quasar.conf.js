@@ -92,7 +92,7 @@ module.exports = function (ctx) {
           changeOrigin:true,
           pathRewrite:{
             '^/local_api':''
-          }
+          },
         }
       }
     },

@@ -58,6 +58,8 @@ module.exports = {
     'comma-dangle':0,
     'no-multiple-empty-lines':0,
     'object-curly-spacing':'off',
+    'quote-props':'off',
+    'dot-notation':'off',
 
 
     // allow debugger during development only

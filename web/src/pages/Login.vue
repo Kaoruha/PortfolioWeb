@@ -1,26 +1,34 @@
 <template>
   <div>
-    <h1>this is login page!</h1>
-    <q-input outlined v-model="user" label="Username" placeholder="Good Good Study！"
-             hint="Please input your username." :dense="dense"></q-input>
+    <div class="card center">
+      <div class="left">
+        <h2>Welcome</h2>
+        <q-input class="input" outlined v-model="user" label="Username" placeholder="Good Good Study！"
+                 hint="Please input your username." :dense="dense"></q-input>
 
-    <q-input outlined v-model="pwd" label="Password" placeholder="Day Day UP！"
-             :type="isPwd ? 'password' : 'text'" hint="Please input your password." :dense="dense">
-      <template v-slot:append>
-        <q-icon
-          :name="isPwd ? 'visibility_off' : 'visibility'"
-          class="cursor-pointer"
-          @click="isPwd = !isPwd"
-        />
-      </template>
-    </q-input>
+        <q-input class="input" outlined v-model="pwd" label="Password" placeholder="Day Day UP！"
+                 :type="isPwd ? 'password' : 'text'" hint="Please input your password." :dense="dense">
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
 
-    <q-btn unelevated rounded color="primary" label="Login" @click="login"/>
-    <q-btn unelevated rounded color="green" label="TEST" @click="test"/>
+        <q-btn unelevated rounded color="primary" label="Login Now" @click="login"/>
+      </div>
+      <div class="right"></div>
+
+
+    </div>
   </div>
 </template>
 
 <script>
+  import User from '../api/user.js'
+
   export default {
     name: 'List',
     components: {},
@@ -34,39 +42,62 @@
     },
     methods: {
       login() {
-        const params = {
-          account: this.user,
-          secret: this.pwd
-        }
         const store = this.$store
-        const url = 'local_api/user/login'
-        this.$axios.post(url, params)
-          .then(function (response) {
-            const r = response.data
-            switch (r.code) {
-              case 200:
-                store.commit('authorization/updateToken', r.data)
-                break
-              case 600:
-                console.log('登陆失败')
-                break
-              case 602:
-                console.log('登陆失败')
-                break
-            }
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        User.Login(this.user, this.pwd).then(function (response) {
+          console.log('VUE=====')
+          console.log(response)
+          console.log('VUE=====')
+          switch (response.code) {
+            case 200:
+              User.tokenUpdate(response.data)
+              store.commit('authorization/updateToken', response.data)
+              break
+            case 400:
+              break
+          }
+        })
       },
-      test() {
-        const t = localStorage.getItem('Authorization')
-        console.log(t)
-      }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .center {
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .card {
+    height: 500px;
+    border-radius: 14px;
+    box-shadow: 0px 0px 8px #888888;
+    width: 800px;
+    margin-top: 80px;
+  }
+
+
+  .left {
+    display: inline-block;
+    height: 100%;
+    width: 64%;
+    padding: 0 40px;
+
+    h2 {
+      font-weight: 800;
+    }
+
+    .input{
+      margin-bottom: 20px;
+    }
+  }
+
+
+  .right {
+    background-color: red;
+    display: inline-block;
+    right: 0;
+    height: 100%;
+    width: 36%;
+  }
 
 </style>
