@@ -17,6 +17,13 @@ const routes = [
     children: [
       { path: '', redirect: 'index' },
       { path: 'index', component: () => import('pages/m_Index.vue') },
+      { path: 'general', component: () => import('pages/General.vue') },
+      { path: 'user', component: () => import('pages/User.vue') },
+      { path: 'works', component: () => import('pages/Works.vue') },
+      { path: 'portfolio', component: () => import('pages/Portfolio.vue') },
+      { path: 'setting', component: () => import('pages/Setting.vue') },
+      { path: 'help', component: () => import('pages/Help.vue') }
+
     ]
   }
 ]
