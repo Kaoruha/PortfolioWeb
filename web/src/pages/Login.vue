@@ -18,6 +18,7 @@
         </q-input>
 
         <q-btn unelevated rounded color="primary" label="Login Now" @click="login"/>
+        <q-btn unelevated rounded color="primary" label="TEST" @click="test"/>
       </div>
       <div class="right">
         <img src="~assets/login_img.jpg" alt="">
@@ -28,7 +29,6 @@
 
 <script>
   import User from '../api/user.js'
-
   export default {
     name: 'List',
     components: {},
@@ -58,6 +58,9 @@
               break
           }
         })
+      },
+      test() {
+        this.$user.test()
       }
     }
   }
