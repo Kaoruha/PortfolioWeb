@@ -8,7 +8,7 @@ const routes = [
       { path: 'commercial', component: () => import('pages/List.vue') },
       { path: 'none-commercial', component: () => import('pages/List.vue') },
       { path: 'about', component: () => import('pages/About.vue') },
-      { path: 'login', component: () => import('pages/Login.vue') }
+      { name:'name', path: 'login', component: () => import('pages/Login.vue') }
     ]
   },
   {
@@ -21,9 +21,9 @@ const routes = [
       { path: 'user', component: () => import('pages/User.vue') },
       { path: 'works', component: () => import('pages/Works.vue') },
       { path: 'portfolio', component: () => import('pages/Portfolio.vue') },
+      { path: 'tags', component: () => import('pages/Tags.vue') },
       { path: 'setting', component: () => import('pages/Setting.vue') },
       { path: 'help', component: () => import('pages/Help.vue') }
-
     ]
   }
 ]

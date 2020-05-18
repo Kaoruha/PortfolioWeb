@@ -1,5 +1,6 @@
 // BaseModule.js
 import axios from 'axios'
+import routes from '../router/index.js'
 
 class BaseModule {
   constructor(url, timeout) {
@@ -23,6 +24,7 @@ class BaseModule {
         // 异常处理
         case 403:
           console.log('权限不足,权限不足')
+          routes.push("/login")
           break
         case 600:
           console.log('表单信息错误')

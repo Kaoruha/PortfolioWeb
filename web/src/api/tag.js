@@ -1,23 +1,17 @@
 import BaseModule from './base.js'
 
-const url = 'local_api/user'
+const url = 'local_api/tag'
 
-class User extends BaseModule {
+class Tag extends BaseModule {
   constructor() {
     super(url, 3000);
   }
 
-  Login(account, password) {
-    return this.instance.post('/login', {
-      "account": account,
-      "password": password
-    })
-  }
-
-  Register(account, password) {
+  Register(name, description) {
     return this.instance.post('/register', {
-      "account": account,
-      "password": password
+      "name": name,
+      "description": description,
+      "icon_url": ''
     })
   }
 
@@ -31,9 +25,9 @@ class User extends BaseModule {
     })
   }
 
-  Delete(uid) {
+  Delete(id) {
     return this.instance.post('/delete', {
-      "uid": uid,
+      "id": id,
     })
   }
 
@@ -42,4 +36,4 @@ class User extends BaseModule {
   }
 }
 
-export default new User()
+export default new Tag()

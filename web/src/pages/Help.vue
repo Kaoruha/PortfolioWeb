@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Help</h1>
+    <h4>Help</h4>
+    <p>You can contact with QQ:809186577 or E-mail:sun159753@gmail.com</p>
   </div>
 </template>
 

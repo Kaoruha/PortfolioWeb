@@ -49,6 +49,12 @@
             url:'/manager/portfolio'
           },
           {
+            icon: 'bookmarks',
+            label: 'Tags',
+            separator: false,
+            url:'/manager/tags'
+          },
+          {
             icon: 'settings',
             label: 'Settings',
             separator: false,

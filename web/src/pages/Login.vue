@@ -42,8 +42,7 @@
     },
     methods: {
       login() {
-        const store = this.$store
-        const router = this.$router
+        const _this = this
         User.Login(this.user, this.pwd).then(function (response) {
           console.log('VUE=====')
           console.log(response)
@@ -51,8 +50,8 @@
           switch (response.code) {
             case 200:
               User.tokenUpdate(response.data)
-              store.commit('authorization/updateToken', response.data)
-              router.push('manager')
+              _this.$store.commit('authorization/updateToken', response.data)
+              _this.$router.push('manager')
               break
             case 400:
               break

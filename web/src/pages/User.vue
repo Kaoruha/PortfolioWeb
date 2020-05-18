@@ -1,54 +1,93 @@
 <template>
   <div class="container">
-    <h4>User Manage</h4>
-    <q-table
-      title="User List"
-      :data="data"
-      :columns="columns"
-      row-key="id"
-      :pagination.sync="pagination"
-      :loading="loading"
-      :filter="filter"
-      @request="onRequest"
-      binary-state-sort
-    >
-      <template v-slot:top-right>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
-          <template v-slot:append>
-            <q-icon name="search"/>
-          </template>
-        </q-input>
-        <q-btn class="btn-add" color="primary" rounded icon="add" label="Add User" @click="prompt = true"/>
-      </template>
-      <template v-slot:body-cell-operation="props">
-        <q-td :props="props">
-          <q-btn color="white" text-color="red" label="Delete" @click="delete_user"/>
-        </q-td>
-      </template>
+    <h4>User Manager</h4>
+      <q-table
+        title="User List"
+        :data="data"
+        :columns="columns"
+        row-key="id"
+        :pagination.sync="pagination"
+        :loading="loading"
+        :filter="filter"
+        @request="onRequest"
+        binary-state-sort
+      >
+        <template v-slot:top-right>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+            <template v-slot:append>
+              <q-icon name="search"/>
+            </template>
+          </q-input>
+          <q-btn class="btn-add" color="primary" rounded icon="add" label="Add User" @click="is_add_show = true"/>
+        </template>
 
-    </q-table>
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td key="id" :props="props">
+              {{ props.row.id }}
+            </q-td>
+            <q-td key="account" :props="props">
+              {{ props.row.account }}
+            </q-td>
+            <q-td key="description" :props="props">
+              {{ props.row.description }}
+              <q-popup-edit v-model="props.row.description" title="Update Description" buttons persistent>
+                <q-input type="input" v-model="props.row.description" dense autofocus hint="Use buttons to close"/>
+              </q-popup-edit>
+            </q-td>
+            <q-td key="recent" :props="props">
+              {{ props.row.recent }}
+            </q-td>
+            <q-td key="operation" :props="props">
+              <q-btn flat color="white" text-color="red" label="Delete"
+                     @click="show_delete_dialog(props.row.id, props.row.account)"/>
+            </q-td>
+          </q-tr>
+        </template>
 
-    <!--新增用户弹窗-->
-    <q-dialog v-model="prompt" persistent>
-      <q-card style="min-width: 350px">
-        <q-card-section>
-          <div class="text-h6">Add User</div>
-        </q-card-section>
+      </q-table>
 
-        <q-card-section class="q-pt-none">
-          <q-input dense v-model="account" autofocus @keyup.enter="prompt = false" placeholder="Account"/>
-        </q-card-section>
+      <!--新增用户弹窗-->
+      <q-dialog v-model="is_add_show" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Add User</div>
+          </q-card-section>
 
-        <q-card-section class="q-pt-none">
-          <q-input dense v-model="password" @keyup.enter="prompt = false" placeholder="Password"/>
-        </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input dense v-model="account" autofocus @keyup.enter="prompt = false" placeholder="Account"/>
+          </q-card-section>
 
-        <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" v-close-popup/>
-          <q-btn flat label="Add" v-close-popup @click="add_user"/>
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+          <q-card-section class="q-pt-none">
+            <q-input dense v-model="password" @keyup.enter="prompt = false" placeholder="Password"/>
+          </q-card-section>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat label="Cancel" v-close-popup/>
+            <q-btn flat label="Add" v-close-popup @click="add_user"/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+
+      <!--用户删除弹窗-->
+      <q-dialog v-model="is_delete_show" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Delete User</div>
+          </q-card-section>
+
+
+          <q-card-section class="q-pt-none del-dialog">
+            <p class="msg">Do you really want to delete</p>
+            <p class="name">{{ready_to_delete.account}}?</p>
+          </q-card-section>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat label="Cancel" v-close-popup/>
+            <q-btn flat color="red" label="Delete" v-close-popup @click="delete_user(ready_to_delete.id)"/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
   </div>
 </template>
 
@@ -59,8 +98,12 @@
     name: "User",
     data() {
       return {
-        prompt: false,
-
+        is_add_show: false,
+        is_delete_show: false,
+        ready_to_delete: {
+          "id": 0,
+          "account": "god"
+        },
         account: '',
         password: '',
         filter: '',
@@ -224,6 +267,11 @@
         })
       },
 
+      clear_add_dialog() {
+        this.account = ''
+        this.password = ''
+      },
+
       add_user() {
         const _this = this
         User.Register(this.account, this.password).then(function (response) {
@@ -233,6 +281,7 @@
                 pagination: _this.pagination,
                 filter: _this.filter
               })
+
               break
             case 600:
               break
@@ -240,18 +289,53 @@
               break
           }
         })
-        // this.account = ''
-        // this.pagination = ''
+        this.clear_add_dialog()
       },
 
-      delete_user() {
-        alert(this.props)
+      show_delete_dialog(id, account) {
+        this.is_delete_show = true
+        this.ready_to_delete.id = id
+        this.ready_to_delete.account = account
+      },
+
+      delete_user(id) {
+        const _this = this
+        User.Delete(id).then(function (response) {
+          switch (response.code) {
+            case 200:
+              _this.onRequest({
+                pagination: _this.pagination,
+                filter: _this.filter
+              })
+              break
+          }
+        })
+      },
+
+      test() {
+        this.$router.push('/login')
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
+  .del-dialog {
+    p {
+      display: inline-block;
+    }
+
+    .msg {
+      margin-right: 10px;
+    }
+
+    .name {
+      color: #F54336;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
   .container {
     padding: 0 24px;
   }
@@ -263,7 +347,6 @@
   .btn-add {
     margin-left: 40px;
   }
-
 
   h4 {
     display: block;
