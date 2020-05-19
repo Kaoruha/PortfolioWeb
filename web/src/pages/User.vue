@@ -32,7 +32,7 @@
             <q-td key="description" :props="props">
               {{ props.row.description }}
               <q-popup-edit v-model="props.row.description" title="Update Description" buttons persistent>
-                <q-input type="input" v-model="props.row.description" dense autofocus hint="Use buttons to close"/>
+                <q-input type="input" v-model="props.row.description" dense autofocus hint="Update Description"/>
               </q-popup-edit>
             </q-td>
             <q-td key="recent" :props="props">
