@@ -29,6 +29,7 @@
 
 <script>
   import User from '../api/user.js'
+
   export default {
     name: 'List',
     components: {},
@@ -58,9 +59,6 @@
           }
         })
       },
-      test() {
-        this.$user.test()
-      }
     }
   }
 </script>
