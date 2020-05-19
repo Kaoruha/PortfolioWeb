@@ -42,6 +42,7 @@
               {{ props.row.recent }}
             </q-td>
             <q-td key="icon" :props="props">
+              <input type="file">
               {{ props.row.icon }}
             </q-td>
             <q-td key="operation" :props="props">
