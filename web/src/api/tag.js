@@ -31,8 +31,11 @@ class Tag extends BaseModule {
     })
   }
 
-  test() {
-    console.log('jjj')
+  Upload(data) {
+    console.log('hh')
+    return this.instance.post('/upload', {data}, {
+      'Content-Type': 'multipart/form-data',
+    })
   }
 }
 
