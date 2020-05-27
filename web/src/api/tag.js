@@ -8,7 +8,7 @@ class Tag extends BaseModule {
   }
 
   Register(name, description) {
-    return this.instance.post('/register', {
+    return this.post('/register', {
       "name": name,
       "description": description,
       "icon_url": ''
@@ -16,7 +16,7 @@ class Tag extends BaseModule {
   }
 
   Filter(filter, descending) {
-    return this.instance.post('/filter', {
+    return this.post('/filter', {
       "start_row": 0,
       "count": 2000,
       "account_filter": filter,
@@ -26,16 +26,15 @@ class Tag extends BaseModule {
   }
 
   Delete(id) {
-    return this.instance.post('/delete', {
+    return this.post('/delete', {
       "id": id,
     })
   }
 
   Upload(data) {
-    console.log('hh')
-    return this.instance.post('/upload', {data}, {
-      'Content-Type': 'multipart/form-data',
-    })
+    const formData = new FormData();
+    formData.append("file", data)
+    return this.upload('/upload', formData)
   }
 }
 

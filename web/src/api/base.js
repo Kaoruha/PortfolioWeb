@@ -8,15 +8,20 @@ class BaseModule {
     this.timeout = timeout
     this.instance = axios.create({
       baseURL: this.url,
-      timeout: this.timeout
+      timeout: this.timeout,
+      headers: {
+        // 'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': localStorage.getItem('Authorization')
+      }
     })
-    this.instance.defaults.headers.common['Authorization'] = localStorage.getItem('Authorization')
+    // this.instance.defaults.headers.common['Authorization'] = localStorage.getItem('Authorization')
 
     // 响应拦截
     this.instance.interceptors.response.use(function (response) {
-      console.log('Interceptor=====')
-      console.log(response)
-      console.log('Interceptor=====')
+      // console.log('Interceptor=====')
+      // console.log(response)
+      // console.log('Interceptor=====')
       switch (response.data.code) {
         case 200:
           console.log('信息获取成功')
@@ -43,21 +48,20 @@ class BaseModule {
     })
   }
 
-
-  tokenUpdate(token) {
-    this.instance.defaults.headers.common['Authorization'] = token
-  }
-
-  tokenDelete() {
-    this.instance.defaults.headers.common['Authorization'] = ''
-  }
-
   get(url, config = {}) {
     return this.instance.get(url, config)
   }
 
   post(url, data, config = {}) {
     return this.instance.post(url, data, config)
+  }
+
+  upload(url, data) {
+    return this.instance.post(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    })
   }
 
   put(url, data, config = {}) {

@@ -18,7 +18,6 @@
         </q-input>
 
         <q-btn unelevated rounded color="primary" label="Login Now" @click="login"/>
-        <q-btn unelevated rounded color="primary" label="TEST" @click="test"/>
       </div>
       <div class="right">
         <img src="~assets/login_img.jpg" alt="">
@@ -50,7 +49,6 @@
           console.log('VUE=====')
           switch (response.code) {
             case 200:
-              User.tokenUpdate(response.data)
               _this.$store.commit('authorization/updateToken', response.data)
               _this.$router.push('manager')
               break
