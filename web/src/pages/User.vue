@@ -255,7 +255,7 @@
         const _this = this
         User.Filter(filter, descending).then(function (response) {
           const data = response.data
-          console.log(data)
+          console.log(response)
           for (let i = 0; i < data.length; i++) {
             _this.original.push({
               "account": data[i]["account"],
