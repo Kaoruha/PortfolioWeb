@@ -17,6 +17,20 @@ class BaseModule {
     })
     // this.instance.defaults.headers.common['Authorization'] = localStorage.getItem('Authorization')
 
+
+    // 请求拦截
+    this.instance.interceptors.request.use(
+      config => {
+        // console.log(config)
+        // 更新token
+        config.headers.Authorization = localStorage.getItem('Authorization')
+        return config
+      },
+      error => {
+        // console.log(error)
+        return Promise.reject(error)
+      }
+    )
     // 响应拦截
     this.instance.interceptors.response.use(function (response) {
       // console.log('Interceptor=====')
